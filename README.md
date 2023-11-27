@@ -11,3 +11,4 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/68b5ca739eef12fa4a2f/test_coverage)](https://codeclimate.com/github/FTSx0/frontend-project-46/test_coverage)
 
 [![asciicast](https://asciinema.org/a/617275.svg)](https://asciinema.org/a/617275)
+[![asciicast](https://asciinema.org/a/623515.svg)](https://asciinema.org/a/623515)
