@@ -10,6 +10,8 @@ const readFile = (filePath) => fs.readFileSync(getAbsPath(filePath), 'utf8');
 const getFileExtension = (filePath) => path.extname(filePath).slice(1);
 
 // gendiff __fixtures__/file1.json __fixtures__/file2.json
+// gendiff __fixtures__/file1.yml __fixtures__/file2.yml
+// gendiff __fixtures__/file1.json __fixtures__/file2.yml
 
 const findDifferences = (file1, file2) => {
   const keysFile1 = Object.keys(file1);

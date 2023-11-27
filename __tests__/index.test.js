@@ -16,9 +16,13 @@ const fixturePath = path.join(
 const readFixtureFile = fs.readFileSync(fixturePath, 'utf8');
 const expectedData = readFixtureFile;
 
-const file1 = '__fixtures__/file1.json';
-const file2 = '__fixtures__/file2.json';
+const file1json = '__fixtures__/file1.json';
+const file2json = '__fixtures__/file2.json';
+const file1yml = '__fixtures__/file1.yml';
+const file2yml = '__fixtures__/file2.yml';
 
 test('Тестируем genDiff', () => {
-  expect(genDiff(file1, file2)).toEqual(expectedData);
+  expect(genDiff(file1json, file2json)).toEqual(expectedData);
+  expect(genDiff(file1yml, file2yml)).toEqual(expectedData);
+  expect(genDiff(file1json, file2yml)).toEqual(expectedData);
 });
