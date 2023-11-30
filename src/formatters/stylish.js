@@ -26,41 +26,40 @@ const isObject = (data, depth = 0) => {
 };
 
 const stylish = (diff) => {
-  const iter = (data, depth) =>
-    data.map((item) => {
-      switch (item.status) {
-        case 'unchanged':
-          return `${ident(depth)}  ${item.key}: ${isObject(
-            item.value,
-            depth + 1,
-          )}`;
-        case 'added':
-          return `${ident(depth)}+ ${item.key}: ${isObject(
-            item.value,
-            depth + 1,
-          )}`;
-        case 'deleted':
-          return `${ident(depth)}- ${item.key}: ${isObject(
-            item.value,
-            depth + 1,
-          )}`;
-        case 'changed':
-          return `${ident(depth)}- ${item.key}: ${isObject(
-            item.value1,
-            depth + 1,
-          )}\n${ident(depth)}+ ${item.key}: ${isObject(
-            item.value2,
-            depth + 1,
-          )}`;
-        case 'nested':
-          return `${ident(depth)}  ${item.key}: {\n${iter(
-            item.value,
-            depth + 1,
-          ).join('\n')}\n${ident(depth)}  }`;
-        default:
-          return `${ident(depth)}->${item.key}: неизвестный статус`;
-      }
-    });
+  const iter = (data, depth) => data.map((item) => {
+    switch (item.status) {
+      case 'unchanged':
+        return `${ident(depth)}  ${item.key}: ${isObject(
+          item.value,
+          depth + 1,
+        )}`;
+      case 'added':
+        return `${ident(depth)}+ ${item.key}: ${isObject(
+          item.value,
+          depth + 1,
+        )}`;
+      case 'deleted':
+        return `${ident(depth)}- ${item.key}: ${isObject(
+          item.value,
+          depth + 1,
+        )}`;
+      case 'changed':
+        return `${ident(depth)}- ${item.key}: ${isObject(
+          item.value1,
+          depth + 1,
+        )}\n${ident(depth)}+ ${item.key}: ${isObject(
+          item.value2,
+          depth + 1,
+        )}`;
+      case 'nested':
+        return `${ident(depth)}  ${item.key}: {\n${iter(
+          item.value,
+          depth + 1,
+        ).join('\n')}\n${ident(depth)}  }`;
+      default:
+        return `${ident(depth)}->${item.key}: неизвестный статус`;
+    }
+  });
   return `{\n${iter(diff, 1).join('\n')}\n}`;
 };
 

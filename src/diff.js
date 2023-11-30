@@ -18,9 +18,9 @@ const findDifferences = (file1, file2) => {
       };
     }
     if (
-      file1[key] !== file2[key] &&
-      keysFile1.includes(key) &&
-      keysFile2.includes(key)
+      file1[key] !== file2[key]
+      && keysFile1.includes(key)
+      && keysFile2.includes(key)
     ) {
       return {
         key,
