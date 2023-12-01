@@ -4,7 +4,9 @@ import process from 'process';
 import findDifferences from './diff.js';
 import getParse from './parsers.js';
 
-import stylish from './formatters/stylish.js';
+import formatSelection from './formatters/index.js';
+// import stylish from './formatters/stylish.js';
+// import plain from './formatters/plain.js';
 
 const readFile = (filePath) => {
   const fullPath = path.resolve(process.cwd(), filePath);
@@ -27,6 +29,6 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const fileReading2 = readFile(filepath2);
   const filePars1 = getParse(fileReading1, getFileExtension(filepath1));
   const filePars2 = getParse(fileReading2, getFileExtension(filepath2));
-  return stylish(findDifferences(filePars1, filePars2, formatName));
+  return formatSelection(findDifferences(filePars1, filePars2), formatName);
 };
 export default genDiff;
