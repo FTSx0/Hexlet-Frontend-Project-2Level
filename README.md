@@ -16,7 +16,7 @@
 
 > **Установка:**
 >
-> ```
+> ```bash
 > $ make install
 > ```
 >
@@ -24,7 +24,7 @@
 >
 > _# формат plain_
 >
-> ```javascript
+> ```bash
 > gendiff --format plain path/to/file.yml another/path/file.json
 >
 > Property 'common.follow' was added with value: false
@@ -34,7 +34,7 @@
 >
 > _# формат stylish_
 >
-> ```javascript
+> ```bash
 > gendiff filepath1.json filepath2.json
 >
 > {
