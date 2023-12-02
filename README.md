@@ -56,8 +56,8 @@
 
 > **Демонстрация работы проекта:**
 >
-> - [https://asciinema.org/a/617275](https://asciinema.org/a/617275)
-> - [https://asciinema.org/a/617275](https://asciinema.org/a/623515)
-> - [https://asciinema.org/a/617275](https://asciinema.org/a/624259)
-> - [https://asciinema.org/a/617275](https://asciinema.org/a/624325)
-> - [https://asciinema.org/a/624327](https://asciinema.org/a/624327)
+> - https://asciinema.org/a/617275
+> - https://asciinema.org/a/623515
+> - https://asciinema.org/a/624259
+> - https://asciinema.org/a/624325
+> - https://asciinema.org/a/624327
