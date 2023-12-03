@@ -1,16 +1,3 @@
-// const stylish = (diff) => {
-//   const result = diff.map((item) => {
-//     console.log(item);
-//     console.log(typeof item.value);
-//     if (item.status === 'deleted') {
-//       return `  - ${item.key}: ${item.value}`;
-//     }
-//     if (item.statur === 'added') {
-//     }
-//   });
-//   return result;
-// };
-
 const ident = (depth, spacesCount = 4) => ' '.repeat(depth * spacesCount - 2);
 
 const isObject = (data, depth = 0) => {
@@ -57,7 +44,7 @@ const stylish = (diff) => {
           depth + 1,
         ).join('\n')}\n${ident(depth)}  }`;
       default:
-        return `${ident(depth)}->${item.key}: неизвестный статус`;
+        throw new Error(`Unknown status: '${item.status}'!`);
     }
   });
   return `{\n${iter(diff, 1).join('\n')}\n}`;

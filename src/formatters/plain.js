@@ -10,8 +10,6 @@ const checkValueType = (value) => {
 
 const plain = (diff, path = '') => {
   const result = diff.map((item) => {
-    // console.log(item.key, item.status, item);
-
     switch (item.status) {
       case 'unchanged':
         return '';
@@ -30,10 +28,9 @@ const plain = (diff, path = '') => {
       case 'nested':
         return plain(item.value, `${path}${item.key}.`);
       default:
-        return `-->${item.status}: неизвестный статус`;
+        throw new Error(`Unknown status: '${item.status}!'`);
     }
   });
-  // console.log(result)
   return result.filter((item) => item !== '').join('\n');
 };
 
