@@ -1,7 +1,7 @@
 import stylish from './stylish.js';
 import plain from './plain.js';
 
-const formatSelection = (data, format) => {
+const createReport = (data, format) => {
   if (format === 'stylish') {
     return stylish(data);
   }
@@ -14,4 +14,4 @@ const formatSelection = (data, format) => {
   return `Format error: ${format}`;
 };
 
-export default formatSelection;
+export default createReport;

@@ -1,16 +1,16 @@
 const checkValueType = (value) => {
-  if (typeof value === 'object' && value !== null) {
-    return '[complex value]';
-  }
   if (value === null) {
     return null;
+  }
+  if (typeof value === 'object') {
+    return '[complex value]';
   }
   return typeof value === 'string' ? `'${value}'` : value;
 };
 
 const plain = (diff, path = '') => {
   const result = diff.map((item) => {
-    switch (item.status) {
+    switch (item.type) {
       case 'unchanged':
         return '';
       case 'added':
@@ -28,7 +28,7 @@ const plain = (diff, path = '') => {
       case 'nested':
         return plain(item.value, `${path}${item.key}.`);
       default:
-        throw new Error(`Unknown status: '${item.status}!'`);
+        throw new Error(`Unknown status: '${item.type}!'`);
     }
   });
   return result.filter((item) => item !== '').join('\n');

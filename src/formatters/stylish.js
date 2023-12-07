@@ -14,7 +14,7 @@ const isObject = (data, depth = 0) => {
 
 const stylish = (diff) => {
   const iter = (data, depth) => data.map((item) => {
-    switch (item.status) {
+    switch (item.type) {
       case 'unchanged':
         return `${ident(depth)}  ${item.key}: ${isObject(
           item.value,
@@ -44,7 +44,7 @@ const stylish = (diff) => {
           depth + 1,
         ).join('\n')}\n${ident(depth)}  }`;
       default:
-        throw new Error(`Unknown status: '${item.status}'!`);
+        throw new Error(`Unknown status: '${item.type}'!`);
     }
   });
   return `{\n${iter(diff, 1).join('\n')}\n}`;
