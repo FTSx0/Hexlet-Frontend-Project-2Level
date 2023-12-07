@@ -44,7 +44,7 @@ const stylish = (diff) => {
           depth + 1,
         ).join('\n')}\n${ident(depth)}  }`;
       default:
-        throw new Error(`Unknown status: '${item.type}'!`);
+        throw new Error(`Unknown type: '${item.type}'!`);
     }
   });
   return `{\n${iter(diff, 1).join('\n')}\n}`;

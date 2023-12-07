@@ -28,7 +28,7 @@ const plain = (diff, path = '') => {
       case 'nested':
         return plain(item.value, `${path}${item.key}.`);
       default:
-        throw new Error(`Unknown status: '${item.type}!'`);
+        throw new Error(`Unknown type: '${item.type}!'`);
     }
   });
   return result.filter((item) => item !== '').join('\n');
