@@ -1,53 +1,49 @@
+import _ from 'lodash';
+
 const ident = (depth, spacesCount = 4) => ' '.repeat(depth * spacesCount - 2);
 
-const isObject = (data, depth = 0) => {
-  if (typeof data !== 'object' || data === null) {
-    return data;
+const strigify = (data, depth = 1) => {
+  if (!_.isObject(data)) {
+    return String(data);
   }
   const entries = Object.entries(data);
   const items = entries.map(
-    ([key, value]) => `${ident(depth)}  ${key}: ${isObject(value, depth + 1)}`,
+    ([key, value]) => `${ident(depth + 1)}  ${key}: ${strigify(value, depth + 1)}`,
   );
-  const result = `{\n${items.join('\n')}\n${ident(depth - 1)}  }`;
+  const result = `{\n${items.join('\n')}\n  ${ident(depth)}}`;
   return result;
 };
 
-const stylish = (diff) => {
-  const iter = (data, depth) => data.map((item) => {
+const createStylish = (diff) => {
+  const iter = (data, depth = 1) => data.map((item) => {
     switch (item.type) {
       case 'unchanged':
-        return `${ident(depth)}  ${item.key}: ${isObject(
-          item.value,
-          depth + 1,
-        )}`;
+        return `${ident(depth)}  ${item.key}: ${strigify(item.value, depth)}`;
       case 'added':
-        return `${ident(depth)}+ ${item.key}: ${isObject(
-          item.value,
-          depth + 1,
-        )}`;
+        return `${ident(depth)}+ ${item.key}: ${strigify(item.value, depth)}`;
       case 'deleted':
-        return `${ident(depth)}- ${item.key}: ${isObject(
-          item.value,
-          depth + 1,
-        )}`;
-      case 'changed':
-        return `${ident(depth)}- ${item.key}: ${isObject(
+        return `${ident(depth)}- ${item.key}: ${strigify(item.value, depth)}`;
+      case 'changed': {
+        const line1 = `${ident(depth)}- ${item.key}: ${strigify(
           item.value1,
-          depth + 1,
-        )}\n${ident(depth)}+ ${item.key}: ${isObject(
-          item.value2,
-          depth + 1,
+          depth,
         )}`;
+        const line2 = `${ident(depth)}+ ${item.key}: ${strigify(
+          item.value2,
+          depth,
+        )}`;
+        return `${line1}\n${line2}`;
+      }
       case 'nested':
         return `${ident(depth)}  ${item.key}: {\n${iter(
-          item.value,
+          item.children,
           depth + 1,
         ).join('\n')}\n${ident(depth)}  }`;
       default:
         throw new Error(`Unknown type: '${item.type}'!`);
     }
   });
-  return `{\n${iter(diff, 1).join('\n')}\n}`;
+  return `{\n${iter(diff).join('\n')}\n}`;
 };
 
-export default stylish;
+export default createStylish;

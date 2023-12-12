@@ -15,11 +15,11 @@ const findDifferences = (data1, data2) => {
     if (_.isPlainObject(data1[key]) && _.isPlainObject(data2[key])) {
       return {
         key,
-        value: findDifferences(data1[key], data2[key]),
+        children: findDifferences(data1[key], data2[key]),
         type: 'nested',
       };
     }
-    if (data1[key] !== data2[key]) {
+    if (!_.isEqual(data1[key], data2[key])) {
       return {
         key,
         value1: data1[key],

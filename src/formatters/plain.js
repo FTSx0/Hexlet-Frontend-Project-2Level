@@ -1,37 +1,40 @@
-const checkValueType = (value) => {
-  if (value === null) {
-    return null;
-  }
-  if (typeof value === 'object') {
+import _ from 'lodash';
+
+const stringify = (value) => {
+  if (_.isObject(value)) {
     return '[complex value]';
   }
-  return typeof value === 'string' ? `'${value}'` : value;
+  if (_.isString(value)) {
+    return `'${value}'`;
+  }
+  return String(value);
 };
 
-const plain = (diff, path = '') => {
+const getPath = (path, key) => (path ? `${path}.${key}` : `${key}`);
+
+const createPlain = (diff, path = '') => {
   const result = diff.map((item) => {
+    const currentPath = getPath(path, item.key);
     switch (item.type) {
       case 'unchanged':
         return '';
       case 'added':
-        return `Property '${path}${
-          item.key
-        }' was added with value: ${checkValueType(item.value)}`;
-      case 'deleted':
-        return `Property '${path}${item.key}' was removed`;
-      case 'changed':
-        return `Property '${path}${
-          item.key
-        }' was updated. From ${checkValueType(item.value1)} to ${checkValueType(
-          item.value2,
+        return `Property '${currentPath}' was added with value: ${stringify(
+          item.value,
         )}`;
+      case 'deleted':
+        return `Property '${currentPath}' was removed`;
+      case 'changed':
+        return `Property '${currentPath}' was updated. From ${stringify(
+          item.value1,
+        )} to ${stringify(item.value2)}`;
       case 'nested':
-        return plain(item.value, `${path}${item.key}.`);
+        return createPlain(item.children, currentPath);
       default:
         throw new Error(`Unknown type: '${item.type}!'`);
     }
   });
-  return result.filter((item) => item !== '').join('\n');
+  return result.filter(Boolean).join('\n');
 };
 
-export default plain;
+export default createPlain;
